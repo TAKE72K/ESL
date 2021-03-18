@@ -1,5 +1,5 @@
-#include "systemc.h"
 
+#include "DMA.h"
 
 void dma::dma_master(){
 	//reg init
@@ -13,23 +13,16 @@ void dma::dma_master(){
 	printf("dma reset\n");
 	
 	while(1){
+		wait();
 		if(interrupt==0){
 			if(START==0){
 				//slave port recieve control data
-				switch(addr_s.read()-BASE){
-					case 0x0:
-						SOURCE=wdata_s.read();
-					break;
-					case 0x4:
-						TARGET=wdata_s.read();
-					break;
-					case 0x8:
-						SIZE=wdata_s.read();
-					break;
-					case 0xC:
-						START=wdata_s.read();
-					break;
-				}
+			if(addr_s.read()==0x2021) {SOURCE=wdata_s.read();printf("write SOURCE success");}
+			if(addr_s.read()==BASE+0x4) TARGET=wdata_s.read();
+			if(addr_s.read()==BASE+0x8) SIZE=wdata_s.read();
+			if(addr_s.read()==BASE+0xC) START=wdata_s.read();
+					
+				
 			}
 			else{
 				for(int i=0;i<SIZE;i++){

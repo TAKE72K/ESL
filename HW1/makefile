@@ -4,7 +4,7 @@ BUILDFLAGS  = -g3
 CXX         = g++
 
 INCFLAGS    = -I. -I${SYSTEMC_DIR}/include
-LDFLAGS     = -L${SYSTEMC_DIR}/lib-linux -lsystemc -lm
+LDFLAGS     = -L${SYSTEMC_DIR}/lib-linux64 -lsystemc -lm
 SRC_CPPHEAD = DMA
 SRC_CPP     =
 HEADERS     =

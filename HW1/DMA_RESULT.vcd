@@ -1,0 +1,80 @@
+$date
+     Mar 19, 2021       01:25:27
+$end
+
+$version
+ SystemC 2.3.3-Accellera --- Mar  5 2021 22:30:26
+$end
+
+$timescale
+     1 ps
+$end
+
+$scope module SystemC $end
+$var wire    1  aaaaa  reset       $end
+$var wire    1  aaaab  interrupt       $end
+$var wire   32  aaaac  addr_s [31:0]  $end
+$var wire   32  aaaad  wdata_s [31:0]  $end
+$var wire   32  aaaae  rdata_s [31:0]  $end
+$var wire    1  aaaaf  rw_s       $end
+$var wire   32  aaaag  wdata_m [31:0]  $end
+$var wire   32  aaaah  rdata_m [31:0]  $end
+$var wire   32  aaaai  addr_m [31:0]  $end
+$var wire    1  aaaaj  rw_m       $end
+$var wire   32  aaaak  SOURCE [31:0]  $end
+$var wire   32  aaaal  TARGET [31:0]  $end
+$var wire   32  aaaam  BASE [31:0]  $end
+$var wire   32  aaaan  SIZE [31:0]  $end
+$var wire    1  aaaao  START       $end
+$var wire   32  aaaap  DATA_reg [31:0]  $end
+$upscope $end
+$enddefinitions  $end
+
+$comment
+All initial values are dumped below at time 0 sec = 0 timescale units.
+$end
+
+$dumpvars
+0aaaaa
+0aaaab
+b0 aaaac
+b0 aaaad
+b0 aaaae
+0aaaaf
+b0 aaaag
+b0 aaaah
+b0 aaaai
+0aaaaj
+b0 aaaak
+b0 aaaal
+b10000000100001 aaaam
+b0 aaaan
+0aaaao
+b0 aaaap
+$end
+
+#20000
+1aaaaa
+
+#60000
+0aaaaa
+b10000000100001 aaaac
+b100000000000000000 aaaad
+b100000000000000000 aaaak
+
+#80000
+b10000000100101 aaaac
+b110000000000000000 aaaad
+b110000000000000000 aaaal
+
+#100000
+b10000000101001 aaaac
+b1000 aaaad
+b1000 aaaan
+
+#120000
+b10000000101101 aaaac
+b1 aaaad
+1aaaao
+
+#140000

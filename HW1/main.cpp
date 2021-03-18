@@ -9,18 +9,19 @@ int sc_main(int argc, char* argv[]){
 	
 	//slave port
 	sc_signal<sc_uint<32> >  addr_s, wdata_s;
-	sc_signal<sc_unit<32> > rdata_s;
+	sc_signal<sc_uint<32> > rdata_s;
 	sc_signal<bool> rw_s;
 	//master port
 	sc_signal<sc_uint<32> >  wdata_m;
-	sc_signal<sc_unit<32> > rdata_m, addr_m;
+	sc_signal<sc_uint<32> > rdata_m, addr_m;
 	sc_signal<bool> rw_m;
 	
 	sc_time clkPrd(20, SC_NS);
 	sc_clock clk("clk", clkPrd, 1, SC_ZERO_TIME, true);
 	
 	
-	DMA d1("DMA");
+	dma d1("DMA");
+d1.clk(clk);
 	//connect port
 	d1.reset(reset);
 	d1.interrupt(interrupt);
@@ -32,11 +33,13 @@ int sc_main(int argc, char* argv[]){
 	d1.rw_s(rw_s);
 	
 	//master port
-	sc_signal<sc_uint<32> >  wdata_m;
-	sc_signal<sc_unit<32> > rdata_m, addr_m;
-	sc_signal<bool> rw_m;
+	d1.addr_m(addr_m);
+	d1.wdata_m(wdata_m);
+	d1.rdata_m(rdata_m);
+	d1.rw_m(rw_m);
 	
-	sc_trace_file tf*= sc_create_trace_file("DMA_RESULT");
+	
+	sc_trace_file *tf= sc_create_vcd_trace_file("DMA_RESULT");
 	sc_trace(tf,reset,"reset");
 	sc_trace(tf,interrupt,"interrupt");
 	//slv
@@ -91,7 +94,7 @@ int sc_main(int argc, char* argv[]){
 	addr_s.write(0x202D);
 	sc_start(clkPrd);
 	printf("write START...\n");
-	
+	sc_start(clkPrd*10);
 	sc_close_vcd_trace_file(tf);
 	return(0);
 }
