@@ -94,7 +94,7 @@ int sc_main(int argc, char* argv[]){
 	addr_s.write(0x202D);
 	sc_start(clkPrd);
 	printf("write START...\n");
-	sc_start(clkPrd);
+	
 	
 	rw_s.write(0);
 	wdata_s.write(0x0);
