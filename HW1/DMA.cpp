@@ -43,5 +43,10 @@ void dma::dma_master(){
 				interrupt.write(1);
 			}
 		}
+		else{
+			if(addr_s.read()==BASE+0xC) START=wdata_s.read();
+			if(START==0) interrupt.write(0);
+		}
 	}
+		
 }
