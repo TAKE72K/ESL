@@ -151,15 +151,51 @@ int sc_main(int argc, char* argv[]){
 	addr_s.write(0x202D);
 	sc_start(clkPrd);
 	printf("write CLEAR...\n");
-	sc_start(clkPrd*10);	
+	sc_start(clkPrd*10);
+	
+	
+	wdata_s.write(0xF0000);
+	addr_s.write(0x2025);
+	sc_start(clkPrd);
+	printf("write TRAGET...\n");
 	wdata_s.write(1);
 	addr_s.write(0x202D);
-	sc_start(clkPrd*10);
+	sc_start(clkPrd);
 	printf("write START...\n");
 
-
+	//second rnd
+	rw_s.write(0);
+	wdata_s.write(0x0);
+	addr_s.write(0x0);
+	rw_m.read();
+	
+	addr_m.read();
+	rdata_m.write(0x2021);
+	sc_start(clkPrd);
+	printf("read 1st\n");
+	addr_m.read();
+	wdata_m.read();
+	rw_m.read();
+	sc_start(clkPrd);
+	printf("write 1st\n");
+	//1st
+	
+	addr_m.read();
+	rdata_m.write(0x2022);
+	sc_start(clkPrd);
+	printf("read 2nd\n");
+	addr_m.read();
+	wdata_m.read();
+	rw_m.read();
+	sc_start(clkPrd);
+	printf("write 2nd\n");
+	//2nd
+	
+	//test reset
 	reset.write(1);
+	printf("test reset\n");
 	sc_start(clkPrd*10);
+
 	sc_close_vcd_trace_file(tf);
 	return(0);
 }
