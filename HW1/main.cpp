@@ -21,7 +21,7 @@ int sc_main(int argc, char* argv[]){
 	
 	
 	dma d1("DMA");
-d1.clk(clk);
+	d1.clk(clk);
 	//connect port
 	d1.reset(reset);
 	d1.interrupt(interrupt);
@@ -94,6 +94,21 @@ d1.clk(clk);
 	addr_s.write(0x202D);
 	sc_start(clkPrd);
 	printf("write START...\n");
+	sc_start(clkPrd);
+	
+	rw_s.write(0);
+	wdata_s.write(0x0);
+	addr_s.write(0x0);
+	rw_m.read();
+	
+	addr_m.read();
+	rdata_m.write(0x2021);
+	sc_start(clkPrd);
+	//read 1st
+	
+	
+	
+	
 	sc_start(clkPrd*10);
 	sc_close_vcd_trace_file(tf);
 	return(0);
