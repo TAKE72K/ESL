@@ -84,18 +84,7 @@ void dma::dma_master(){
 						wait();
 					}
 				}
-				for(int i=0;i<((SIZE%4==0)?(SIZE/4):(SIZE/4+1));i++){
-					rw_m.write(0);
-					addr_m.write(SOURCE+(i<<2));
-					DATA=rdata_m.read();
-					wait();
-					
-					rw_m.write(1);
-					addr_m.write(TARGET+(i<<2));
-					wdata_m.write(DATA);
-					wait();
-					
-				}
+				
 				rw_m.write(0);
 				wdata_m.write(0x0);
 				addr_m.write(0x0);
