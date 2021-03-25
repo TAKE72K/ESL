@@ -1,3 +1,5 @@
+#ifndef DMA
+#define DMA
 #include "systemc.h"
 
 SC_MODULE(dma){
@@ -23,3 +25,5 @@ SC_MODULE(dma){
 		reset_signal_is(reset,true);
 	}
 };
+
+#endif

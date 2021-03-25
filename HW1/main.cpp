@@ -78,6 +78,7 @@ int sc_main(int argc, char* argv[]){
 	
 	//write control
 	reset.write(0);
+	rw_s.write(1);
 	wdata_s.write(0x20000);
 	addr_s.write(0x2021);
 	sc_start(clkPrd);
@@ -86,7 +87,7 @@ int sc_main(int argc, char* argv[]){
 	addr_s.write(0x2025);
 	sc_start(clkPrd);
 	printf("write TRAGET...\n");
-	wdata_s.write(0x4);
+	wdata_s.write(0x8);
 	addr_s.write(0x2029);
 	sc_start(clkPrd);
 	printf("write SIZE...\n");
@@ -102,7 +103,7 @@ int sc_main(int argc, char* argv[]){
 	rw_m.read();
 	
 	addr_m.read();
-	rdata_m.write(0x2021);
+	rdata_m.write(0x20212022);
 	sc_start(clkPrd);
 	printf("read 1st\n");
 	addr_m.read();
@@ -113,7 +114,7 @@ int sc_main(int argc, char* argv[]){
 	//1st
 	
 	addr_m.read();
-	rdata_m.write(0x2022);
+	rdata_m.write(0x20222023);
 	sc_start(clkPrd);
 	printf("read 2nd\n");
 	addr_m.read();
@@ -123,27 +124,7 @@ int sc_main(int argc, char* argv[]){
 	printf("write 2nd\n");
 	//2nd
 
-	addr_m.read();
-	rdata_m.write(0x2023);
-	sc_start(clkPrd);
-	printf("read 3rd\n");
-	addr_m.read();
-	wdata_m.read();
-	rw_m.read();
-	sc_start(clkPrd);
-	printf("write 3rd\n");
-	//3rd
 	
-	addr_m.read();
-	rdata_m.write(0x2024);
-	sc_start(clkPrd);
-	printf("read 4th\n");
-	addr_m.read();
-	wdata_m.read();
-	rw_m.read();
-	sc_start(clkPrd);
-	printf("write 4th\n");
-	//4th
 
 	sc_start(clkPrd*10);
 
@@ -158,6 +139,10 @@ int sc_main(int argc, char* argv[]){
 	addr_s.write(0x2025);
 	sc_start(clkPrd);
 	printf("write TRAGET...\n");
+	wdata_s.write(0x7);
+	addr_s.write(0x2029);
+	sc_start(clkPrd);
+	printf("write SIZE...\n");
 	wdata_s.write(1);
 	addr_s.write(0x202D);
 	sc_start(clkPrd);
@@ -170,7 +155,7 @@ int sc_main(int argc, char* argv[]){
 	rw_m.read();
 	
 	addr_m.read();
-	rdata_m.write(0x2021);
+	rdata_m.write(0x20212022);
 	sc_start(clkPrd);
 	printf("read 1st\n");
 	addr_m.read();
@@ -181,7 +166,7 @@ int sc_main(int argc, char* argv[]){
 	//1st
 	
 	addr_m.read();
-	rdata_m.write(0x2022);
+	rdata_m.write(0x20222023);
 	sc_start(clkPrd);
 	printf("read 2nd\n");
 	addr_m.read();
@@ -192,8 +177,8 @@ int sc_main(int argc, char* argv[]){
 	//2nd
 	
 	//test reset
-	reset.write(1);
-	printf("test reset\n");
+	/*reset.write(1);
+	printf("test reset\n");*/
 	sc_start(clkPrd*10);
 
 	sc_close_vcd_trace_file(tf);

@@ -7,9 +7,14 @@ void dma::dma_master(){
 	SOURCE=0x0;
 	TARGET=0x0;
 	SIZE=0x0;
+	DATA=0x0;
 	START=0;
 	//port init
 	interrupt.write(0);
+	rw_m.write(0);
+	addr_m.write(0);
+	wdata_m.write(0);
+	
 	printf("dma reset\n");
 	
 	while(1){
@@ -25,7 +30,7 @@ void dma::dma_master(){
 				
 			}
 			else{
-				for(int i=0;i<SIZE;i++){
+				for(int i=0;i<((SIZE%4==0)?(SIZE/4):(SIZE/4+1));i++){
 					rw_m.write(0);
 					addr_m.write(SOURCE+(i<<2));
 					DATA=rdata_m.read();

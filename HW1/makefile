@@ -1,7 +1,8 @@
 SYSTEMC_DIR = /usr/systemc
 PROJECT     = DMA
-BUILDFLAGS  = -g3
+BUILDFLAGS  = -g1
 CXX         = g++
+CPPFLAGS    = -std=c++17
 
 INCFLAGS    = -I. -I${SYSTEMC_DIR}/include
 LDFLAGS     = -L${SYSTEMC_DIR}/lib-linux64 -lsystemc -lm
@@ -30,6 +31,4 @@ clean:
 	rm -f $(EXE)
 	rm -f *.o
 
-tar:
-	rm -f E24063058.tar
-	tar cvf E24063058.tar makefile $(SRC_CPPHEAD:=.h) $(SRC_CPPHEAD:=.cpp) $(MAIN)
+
