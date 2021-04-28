@@ -7,12 +7,12 @@ void DMA::b_transport(tlm::tlm_generic_payload& trans, sc_time& delay){
 	
 	tlm::tlm_command cmd_s=trans.get_command();
 	uint64 addr_s=trans.get_address();//64->by def
-	unsigned char* data = trans.get_data_ptr();//<-handout miss "()", CHAR* BY DEF
+	unsigned char* data_s = trans.get_data_ptr();//<-handout miss "()", CHAR* BY DEF
 	unsigned int len = trans.get_data_length();
 	if (cmd_s == tlm::TLM_WRITE_COMMAND){//write op
-		data_ptr=(reinterpret_cast<unsigned int*>(data));
-		data=*(data_ptr);
-		offset=addrs-BASE;
+		data_ptr=(reinterpret_cast<unsigned int*>(data_s));
+		data=*(reinterpret_cast<int*>(data_s));
+		offset=addr_s-BASE;
 	}
 	//else{//read op
 		
@@ -59,7 +59,7 @@ void DMA::dma_p(){
 			int size_iter=SIZE;
 			int addr_s=SOURCE;
 			int addr_t=TARGET;
-			while(size_iter!=){//moving data
+			while(size_iter>0){//moving data
 				tlm::tlm_command cmd_mr;
 				cmd_mr = tlm::TLM_READ_COMMAND;
 				trans_m->set_command(cmd_mr);
@@ -70,7 +70,7 @@ void DMA::dma_p(){
 				trans_m->set_byte_enable_ptr(0);
 				trans_m->set_dmi_allowed(false);
 				trans_m->set_response_status(tlm::TLM_INCOMPLETE_RESPONSE);
-				socket_m->b_transport( *trans_m, delay );
+				master_p->b_transport( *trans_m, delay );
 				
 				printf("DMA read from source\n");
 				
@@ -91,7 +91,7 @@ void DMA::dma_p(){
 				trans_m->set_byte_enable_ptr(0);
 				trans_m->set_dmi_allowed(false);
 				trans_m->set_response_status(tlm::TLM_INCOMPLETE_RESPONSE);
-				socket_m->b_transport(*trans_m,delay);
+				master_p->b_transport(*trans_m,delay);
 				
 				//iter
 				size_iter-=4;

@@ -15,7 +15,7 @@ using namespace tlm_utils;
 
 SC_MODULE(DMA){
 	//public
-	sc_in<bool> reset;
+	sc_in<bool> reset,clk;
 	sc_out<bool> Interrupt;
 	
 	simple_target_socket<DMA> slave_p;
@@ -27,7 +27,7 @@ SC_MODULE(DMA){
 	
 	//protect
 	sc_signal<sc_uint<32> > BASE;
-	int offset,
+	int offset;
 	unsigned int data,data_m;
 	unsigned int* data_ptr;
 	
@@ -37,7 +37,7 @@ SC_MODULE(DMA){
 	
 	SC_CTOR(DMA):master_p("master_p"), slave_p("slave_p"){
 		slave_p.register_b_transport(this, &DMA::b_transport);
-		SC_CTHREAD(dmp_p, clk.pos());
+		SC_CTHREAD(dma_p, clk.pos());
 		reset_signal_is(reset,true);
 		BASE=0x63000000;
 	}
