@@ -18,8 +18,8 @@ SC_MODULE(DMA){
 	sc_in<bool> reset;
 	sc_out<bool> Interrupt;
 	
-	simple_target_socket<DMA> master_p;
-	simple_initiator_socket<DMA> slave_p;
+	simple_target_socket<DMA> slave_p;
+	simple_initiator_socket<DMA> master_p;
 	sc_uint<32> SOURCE,
 				TARGET,
 				SIZE;
@@ -39,7 +39,7 @@ SC_MODULE(DMA){
 		slave_p.register_b_transport(this, &DMA::b_transport);
 		SC_CTHREAD(dmp_p, clk.pos());
 		reset_signal_is(reset,true);
-		BASE=0xA0000000;
+		BASE=0x63000000;
 	}
 };
 

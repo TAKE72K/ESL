@@ -6,7 +6,7 @@
 void DMA::b_transport(tlm::tlm_generic_payload& trans, sc_time& delay){
 	
 	tlm::tlm_command cmd_s=trans.get_command();
-	uint32 addr_s=trans.get_address();
+	uint64 addr_s=trans.get_address();//64->by def
 	unsigned char* data = trans.get_data_ptr();//<-handout miss "()", CHAR* BY DEF
 	unsigned int len = trans.get_data_length();
 	if (cmd_s == tlm::TLM_WRITE_COMMAND){//write op
