@@ -35,7 +35,7 @@ SC_MODULE(DMA){
 	void dma_p();
 	void b_transport(tlm::tlm_generic_payload&, sc_time&);
 	
-	SC_CTOR(DMA):master_p(“master_p”), slave_p(“slave_p”){
+	SC_CTOR(DMA):master_p("master_p"), slave_p("slave_p"){
 		slave_p.register_b_transport(this, &DMA::b_transport);
 		SC_CTHREAD(dmp_p, clk.pos());
 		reset_signal_is(reset,true);

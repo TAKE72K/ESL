@@ -1,0 +1,186 @@
+g++ -pthread -c DMA.cpp -I. -I/usr/systemc/include
+In file included from DMA.cpp:1:0:
+DMA.h:31:2: error: expected unqualified-id before ‘unsigned’
+  unsigned int data,data_m;
+  ^~~~~~~~
+In file included from /usr/systemc/include/sysc/kernel/sc_module.h:35:0,
+                 from /usr/systemc/include/systemc:74,
+                 from /usr/systemc/include/tlm:23,
+                 from /usr/systemc/include/tlm.h:22,
+                 from DMA.h:7,
+                 from DMA.cpp:1:
+DMA.h: In constructor ‘DMA::DMA(sc_core::sc_module_name)’:
+DMA.h:40:14: error: ‘dmp_p’ is not a member of ‘DMA::SC_CURRENT_USER_MODULE {aka DMA}’
+   SC_CTHREAD(dmp_p, clk.pos());
+              ^
+/usr/systemc/include/sysc/kernel/sc_process.h:151:60: note: in definition of macro ‘SC_MAKE_FUNC_PTR’
+         static_cast<sc_core::SC_ENTRY_FUNC>(&callback_tag::func)
+                                                            ^~~~
+/usr/systemc/include/sysc/kernel/sc_module.h:448:5: note: in expansion of macro ‘declare_cthread_process’
+     declare_cthread_process( func ## _handle,                                 \
+     ^~~~~~~~~~~~~~~~~~~~~~~
+DMA.h:40:3: note: in expansion of macro ‘SC_CTHREAD’
+   SC_CTHREAD(dmp_p, clk.pos());
+   ^~~~~~~~~~
+In file included from /usr/systemc/include/systemc:74:0,
+                 from /usr/systemc/include/tlm:23,
+                 from /usr/systemc/include/tlm.h:22,
+                 from DMA.h:7,
+                 from DMA.cpp:1:
+DMA.h:40:21: error: ‘clk’ was not declared in this scope
+   SC_CTHREAD(dmp_p, clk.pos());
+                     ^
+/usr/systemc/include/sysc/kernel/sc_module.h:444:46: note: in definition of macro ‘declare_cthread_process’
+         this->sensitive.operator() ( handle, edge );\
+                                              ^~~~
+DMA.h:40:3: note: in expansion of macro ‘SC_CTHREAD’
+   SC_CTHREAD(dmp_p, clk.pos());
+   ^~~~~~~~~~
+DMA.h:40:21: note: suggested alternative: ‘clock’
+   SC_CTHREAD(dmp_p, clk.pos());
+                     ^
+/usr/systemc/include/sysc/kernel/sc_module.h:444:46: note: in definition of macro ‘declare_cthread_process’
+         this->sensitive.operator() ( handle, edge );\
+                                              ^~~~
+DMA.h:40:3: note: in expansion of macro ‘SC_CTHREAD’
+   SC_CTHREAD(dmp_p, clk.pos());
+   ^~~~~~~~~~
+DMA.cpp: In member function ‘void DMA::b_transport(tlm::tlm_generic_payload&, sc_core::sc_time&)’:
+DMA.cpp:14:8: error: invalid conversion from ‘unsigned int’ to ‘unsigned char*’ [-fpermissive]
+   data=*(data_ptr);
+        ^~~~~~~~~~~
+DMA.cpp:15:10: error: ‘addrs’ was not declared in this scope
+   offset=addrs-BASE;
+          ^~~~~
+DMA.cpp:15:10: note: suggested alternative: ‘addr_s’
+   offset=addrs-BASE;
+          ^~~~~
+          addr_s
+DMA.cpp: In member function ‘void DMA::dma_p()’:
+DMA.cpp:30:17: error: ‘data’ was not declared in this scope
+     START_CLEAR=data;
+                 ^~~~
+DMA.cpp:30:17: note: suggested alternative: ‘atan’
+     START_CLEAR=data;
+                 ^~~~
+                 atan
+DMA.cpp:39:13: error: ‘data’ was not declared in this scope
+      SOURCE=data;
+             ^~~~
+DMA.cpp:39:13: note: suggested alternative: ‘atan’
+      SOURCE=data;
+             ^~~~
+             atan
+DMA.cpp:40:43: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘sc_dt::sc_uint<32>’ [-Wformat=]
+      printf("Write SOURCE:%#010x\n",SOURCE);
+                                           ^
+DMA.cpp:44:43: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘sc_dt::sc_uint<32>’ [-Wformat=]
+      printf("Write TARGET:%#010x\n",TARGET);
+                                           ^
+DMA.cpp:48:35: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘sc_dt::sc_uint<32>’ [-Wformat=]
+      printf("Write SIZE:%d\n",SIZE);
+                                   ^
+DMA.cpp:57:95: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘sc_dt::sc_uint<32>’ [-Wformat=]
+    printf("DMA start to work, moving data from %#010x to %#010x, size %d\n",SOURCE,TARGET,SIZE);
+                                                                                               ^
+DMA.cpp:57:95: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘sc_dt::sc_uint<32>’ [-Wformat=]
+DMA.cpp:57:95: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘sc_dt::sc_uint<32>’ [-Wformat=]
+DMA.cpp:62:21: error: expected primary-expression before ‘)’ token
+    while(size_iter!=){//moving data
+                     ^
+DMA.cpp:67:61: error: ‘data_m’ was not declared in this scope
+     trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data_m));
+                                                             ^~~~~~
+DMA.cpp:67:61: note: suggested alternative: ‘dma_p’
+     trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data_m));
+                                                             ^~~~~~
+                                                             dma_p
+DMA.cpp:73:5: error: ‘socket_m’ was not declared in this scope
+     socket_m->b_transport( *trans_m, delay );
+     ^~~~~~~~
+DMA.cpp:73:5: note: suggested alternative: ‘sigset_t’
+     socket_m->b_transport( *trans_m, delay );
+     ^~~~~~~~
+     sigset_t
+DMA.cpp:73:38: error: ‘delay’ was not declared in this scope
+     socket_m->b_transport( *trans_m, delay );
+                                      ^~~~~
+DMA.cpp:73:38: note: suggested alternative: ‘detach’
+     socket_m->b_transport( *trans_m, delay );
+                                      ^~~~~
+                                      detach
+makefile:24: recipe for target 'DMA.o' failed
+make: *** [DMA.o] Error 1
+g++ -pthread -c cpu.cpp -I. -I/usr/systemc/include
+In file included from cpu.cpp:1:0:
+cpu.h: In constructor ‘CPU::CPU(sc_core::sc_module_name)’:
+cpu.h:26:17: error: class ‘CPU’ does not have any field named ‘socket_m’
+  SC_CTOR(CPU) : socket_m("socket_m"){
+                 ^~~~~~~~
+cpu.cpp: In member function ‘void CPU::cpu_p()’:
+cpu.cpp:18:25: error: ‘trans_mw’ was not declared in this scope
+  master_p->b_transport(*trans_mw,delay);
+                         ^~~~~~~~
+cpu.cpp:18:25: note: suggested alternative: ‘trans_m’
+  master_p->b_transport(*trans_mw,delay);
+                         ^~~~~~~~
+                         trans_m
+makefile:24: recipe for target 'cpu.o' failed
+make: *** [cpu.o] Error 1
+g++ -pthread -c mem.cpp -I. -I/usr/systemc/include
+In file included from /usr/systemc/include/systemc:74:0,
+                 from /usr/systemc/include/tlm:23,
+                 from /usr/systemc/include/tlm.h:22,
+                 from mem.h:7,
+                 from mem.cpp:1:
+mem.h:24:10: error: ‘mem’ does not name a type
+  SC_CTOR(mem) : socket_s("socket_s"){
+          ^
+/usr/systemc/include/sysc/kernel/sc_module.h:400:13: note: in definition of macro ‘SC_CTOR’
+     typedef user_module_name SC_CURRENT_USER_MODULE;                          \
+             ^~~~~~~~~~~~~~~~
+/usr/systemc/include/sysc/kernel/sc_module.h:401:49: error: ISO C++ forbids declaration of ‘mem’ with no type [-fpermissive]
+     user_module_name( ::sc_core::sc_module_name )
+                                                 ^
+mem.h:24:2: note: in expansion of macro ‘SC_CTOR’
+  SC_CTOR(mem) : socket_s("socket_s"){
+  ^~~~~~~
+In file included from mem.cpp:1:0:
+mem.h:27:2: error: expected ‘;’ after struct definition
+ }
+  ^
+  ;
+mem.h: In member function ‘int MEM::mem(sc_core::sc_module_name)’:
+mem.h:24:17: error: only constructors take member initializers
+  SC_CTOR(mem) : socket_s("socket_s"){
+                 ^~~~~~~~
+mem.h:25:40: error: ‘mem’ is not a class, namespace, or enumeration
+   socket_s.register_b_transport(this, &mem::b_transport);
+                                        ^~~
+mem.cpp: In member function ‘void MEM::b_transport(tlm::tlm_generic_payload&, sc_core::sc_time&)’:
+mem.cpp:33:17: error: ‘TLM_WRITE_COMMAND’ was not declared in this scope
+  else if(cmd_s==TLM_WRITE_COMMAND){
+                 ^~~~~~~~~~~~~~~~~
+mem.cpp:33:17: note: suggested alternative:
+In file included from /usr/systemc/include/tlm_core/tlm_2/tlm_generic_payload/tlm_generic_payload.h:25:0,
+                 from /usr/systemc/include/tlm_core/tlm_2/tlm_2_interfaces/tlm_fw_bw_ifs.h:24,
+                 from /usr/systemc/include/tlm_core/tlm_2/tlm_2_interfaces/tlm_2_interfaces.h:24,
+                 from /usr/systemc/include/tlm:28,
+                 from /usr/systemc/include/tlm.h:22,
+                 from mem.h:7,
+                 from mem.cpp:1:
+/usr/systemc/include/tlm_core/tlm_2/tlm_generic_payload/tlm_gp.h:92:5: note:   ‘TLM_WRITE_COMMAND’
+     TLM_WRITE_COMMAND,
+     ^~~~~~~~~~~~~~~~~
+mem.cpp:37:37: error: expected ‘;’ before ‘)’ token
+  cout<<"command is"<<(cmd_s)?"r":"w")<<'\n';
+                                     ^
+mem.cpp:38:33: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘sc_dt::uint64 {aka long long unsigned int}’ [-Wformat=]
+  printf("Address: %#010x\n",addr);
+                                 ^
+mem.cpp:39:31: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘unsigned char*’ [-Wformat=]
+  printf("Value: %#010x\n",data);
+                               ^
+makefile:24: recipe for target 'mem.o' failed
+make: *** [mem.o] Error 1
+make: Target 'all' not remade because of errors.

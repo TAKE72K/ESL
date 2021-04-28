@@ -1,0 +1,2 @@
+g++ -pthread -c DMA.cpp -I. -I/usr/systemc/include
+makefile:24: recipe for target 'DMA.o' failed
