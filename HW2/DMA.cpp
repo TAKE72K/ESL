@@ -12,7 +12,7 @@ void DMA::b_transport(tlm::tlm_generic_payload& trans, sc_time& delay){
 	if (cmd_s == tlm::TLM_WRITE_COMMAND){//write op
 		data_ptr=(reinterpret_cast<unsigned int*>(data_s));
 		data=*(reinterpret_cast<int*>(data_s));
-		offset=addr_s-BASE;
+		offset=addr_s-BASE.read();
 	}
 	//else{//read op
 		
@@ -24,7 +24,7 @@ void DMA::dma_p(){
 	while(1){//main dma process
 		wait();
 		tlm::tlm_generic_payload* trans_m = new tlm::tlm_generic_payload;
-		sc_time DELAY = sc_time(10,SC_NS);
+		sc_time delay = sc_time(10,SC_NS);
 		if(Interrupt==1){
 			if(offset==12){
 				START_CLEAR=data;
@@ -59,6 +59,7 @@ void DMA::dma_p(){
 			int size_iter=SIZE;
 			int addr_s=SOURCE;
 			int addr_t=TARGET;
+			
 			while(size_iter>0){//moving data
 				tlm::tlm_command cmd_mr;
 				cmd_mr = tlm::TLM_READ_COMMAND;

@@ -30,11 +30,11 @@ void MEM::b_transport(tlm::tlm_generic_payload& payload,sc_time& delay){
 		}
 		
 	}
-	else if(cmd_s==TLM_WRITE_COMMAND){
+	else if(cmd_s==tlm::TLM_WRITE_COMMAND){
 		ram[addr]=*(reinterpret_cast<int*>(data));
 	}
 	cout<<sc_time_stamp()<<'\n';
-	cout<<"command is"<<(cmd_s)?"r":"w")<<'\n';
+	cout<<"command is"<<(cmd_s)?"r":"w"<<'\n';
 	printf("Address: %#010x\n",addr);
 	printf("Value: %#010x\n",data);
 	wait(10,SC_NS);

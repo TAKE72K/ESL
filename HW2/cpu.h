@@ -23,7 +23,7 @@ SC_MODULE(CPU){
 
 	void cpu_p();
 
-	SC_CTOR(CPU) : socket_m("socket_m"){
+	SC_CTOR(CPU) : master_p("master_p"){
 		SC_CTHREAD(cpu_p,clk.pos());
 		reset_signal_is(reset,true);
 	}

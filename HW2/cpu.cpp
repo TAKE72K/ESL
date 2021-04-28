@@ -15,7 +15,7 @@ void CPU::cpu_p(){
 	trans_m->set_address(0x63000000);
 	trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data));
 	trans_m->set_data_length(4);//byte
-	master_p->b_transport(*trans_mw,delay);
+	master_p->b_transport(*trans_m,delay);
 	cout<<sc_time_stamp()<<" Write SOURCE:"<<hex<<data<<'\n';
 	
 	data = 0x400;
@@ -23,7 +23,7 @@ void CPU::cpu_p(){
 	trans_m->set_address(0x63000004);
 	trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data));
 	trans_m->set_data_length(4);//byte
-	master_p->b_transport(*trans_mw,delay);
+	master_p->b_transport(*trans_m,delay);
 	cout<<sc_time_stamp()<<" Write TARGET:"<<hex<<data<<'\n';
 	
 	data = 0x10;
@@ -31,7 +31,7 @@ void CPU::cpu_p(){
 	trans_m->set_address(0x63000008);
 	trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data));
 	trans_m->set_data_length(4);//byte
-	master_p->b_transport(*trans_mw,delay);
+	master_p->b_transport(*trans_m,delay);
 	cout<<sc_time_stamp()<<" Write SIZE:"<<data<<'\n';
 	
 	data = 0x1;
@@ -39,7 +39,7 @@ void CPU::cpu_p(){
 	trans_m->set_address(0x6300000c);
 	trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data));
 	trans_m->set_data_length(4);//byte
-	master_p->b_transport(*trans_mw,delay);
+	master_p->b_transport(*trans_m,delay);
 	cout<<sc_time_stamp()<<" Write START:"<<data<<'\n';
 	
 	trans_m->set_command(cmd_mr);
