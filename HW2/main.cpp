@@ -11,7 +11,7 @@ int sc_main(int argc,char* argv[]){
 	sc_clock clk("clk",clkprd,0.50,clkDly,true);
 
 //MASTER
-	cpu *cpu1 = new cpu("cpu1");
+	CPU *cpu1 = new CPU("cpu1");
 	cpu1->clk(clk);
 	cpu1->Interrupt(Interrupt);
 	cpu1->reset(reset);
@@ -27,7 +27,7 @@ int sc_main(int argc,char* argv[]){
 	DMA1->Interrupt(Interrupt);
 	DMA1->reset(reset);
 
-	mem *mem1 = new mem("mem1");
+	MEM *mem1 = new MEM("mem1");
 	mem1->clk(clk);
 
 	cpu1->master_p.bind( DMA1->slave_p );

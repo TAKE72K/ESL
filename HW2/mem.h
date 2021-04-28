@@ -22,7 +22,7 @@ SC_MODULE(MEM){
 	void b_transport(tlm::tlm_generic_payload&, sc_time&);
 	
 	SC_CTOR(MEM) : slave_p("slave_p"){
-		slave_p.register_b_transport(this, &mem::b_transport);
+		slave_p.register_b_transport(this, &MEM::b_transport);
 	}
 };
 

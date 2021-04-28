@@ -17,15 +17,18 @@ void DMA::b_transport(tlm::tlm_generic_payload& trans, sc_time& delay){
 	//else{//read op
 		
 	//}
+	wait(30,SC_NS);
+	trans.set_response_status(tlm::TLM_OK_RESPONSE);
 
 }
 void DMA::dma_p(){
-	
+	START_CLEAR=0;
+	Interrupt.write(0);
 	while(1){//main dma process
 		wait();
 		tlm::tlm_generic_payload* trans_m = new tlm::tlm_generic_payload;
 		sc_time delay = sc_time(10,SC_NS);
-		if(Interrupt==1){
+		if(Interrupt.read()==1){
 			if(offset==12){
 				START_CLEAR=data;
 			}
@@ -34,20 +37,22 @@ void DMA::dma_p(){
 			}
 		}
 		if(START_CLEAR==0){
+			cout<<offset<<"\n";
 			switch(offset){
-				case 0:
+				case 0x0:
 					SOURCE=data;
 					printf("Write SOURCE:%#010x\n",SOURCE);
+cout<<hex<<SOURCE;
 					break;
-				case 4:
+				case 0x4:
 					TARGET=data;
 					printf("Write TARGET:%#010x\n",TARGET);
 					break;
-				case 8:
+				case 0x8:
 					SIZE=data;
 					printf("Write SIZE:%d\n",SIZE);
 					break;
-				case 12:
+				case 0xc:
 					START_CLEAR=data;
 					printf("Write START\n");
 					break;

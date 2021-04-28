@@ -7,7 +7,9 @@ void CPU::cpu_p(){
 	
 	tlm::tlm_command cmd_mw=tlm::TLM_WRITE_COMMAND;
 	tlm::tlm_command cmd_mr=tlm::TLM_READ_COMMAND;
-	
+	wait(20,SC_NS);	
+
+
 	cout<<"Write control data\n"<<sc_time_stamp()<<'\n';
 	
 	data = 0x0;
@@ -53,7 +55,7 @@ void CPU::cpu_p(){
 			trans_m->set_address(0x6300000c);
 			trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data));
 			trans_m->set_data_length(4);//byte
-			master_p->b_transport(*trans_mw,delay);
+			master_p->b_transport(*trans_m,delay);
 			cout<<sc_time_stamp()<<" Write CLEAR:"<<data<<'\n';
 		}
 	}

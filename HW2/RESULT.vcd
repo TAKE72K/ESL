@@ -1,0 +1,159 @@
+$date
+     Apr 29, 2021       03:20:06
+$end
+
+$version
+ SystemC 2.3.3-Accellera --- Mar  5 2021 22:30:26
+$end
+
+$timescale
+     1 ps
+$end
+
+$scope module SystemC $end
+$var wire    1  aaaaa  clock       $end
+$var wire    1  aaaab  Interrupt       $end
+$var wire   32  aaaac  SOURCE [31:0]  $end
+$var wire   32  aaaad  TARGET [31:0]  $end
+$var wire   32  aaaae  SIZE [31:0]  $end
+$var wire    1  aaaaf  START       $end
+$var wire   32  aaaag  Mem_Data [31:0]  $end
+$upscope $end
+$enddefinitions  $end
+
+$comment
+All initial values are dumped below at time 0 sec = 0 timescale units.
+$end
+
+$dumpvars
+0aaaaa
+0aaaab
+b0 aaaac
+b0 aaaad
+b0 aaaae
+0aaaaf
+b0 aaaag
+$end
+
+#10000
+1aaaaa
+
+#15000
+0aaaaa
+
+#20000
+1aaaaa
+
+#25000
+0aaaaa
+
+#30000
+1aaaaa
+
+#35000
+0aaaaa
+
+#40000
+1aaaaa
+
+#45000
+0aaaaa
+
+#50000
+1aaaaa
+
+#55000
+0aaaaa
+
+#60000
+1aaaaa
+b10000000000 aaaad
+
+#65000
+0aaaaa
+
+#70000
+1aaaaa
+
+#75000
+0aaaaa
+
+#80000
+1aaaaa
+
+#85000
+0aaaaa
+
+#90000
+1aaaaa
+b10000 aaaae
+
+#95000
+0aaaaa
+
+#100000
+1aaaaa
+
+#105000
+0aaaaa
+
+#110000
+1aaaaa
+
+#115000
+0aaaaa
+
+#120000
+1aaaaa
+1aaaaf
+b100000001000010010000000100001 aaaag
+
+#125000
+0aaaaa
+
+#130000
+1aaaaa
+
+#135000
+0aaaaa
+
+#140000
+1aaaaa
+b1000100010001000100010001000100 aaaag
+
+#145000
+0aaaaa
+
+#150000
+1aaaaa
+
+#155000
+0aaaaa
+
+#160000
+1aaaaa
+b10011000100110001001100010011000 aaaag
+
+#165000
+0aaaaa
+
+#170000
+1aaaaa
+
+#175000
+0aaaaa
+
+#180000
+1aaaaa
+b11001100110011001100110011001100 aaaag
+
+#185000
+0aaaaa
+
+#190000
+1aaaaa
+
+#195000
+0aaaaa
+
+#200000
