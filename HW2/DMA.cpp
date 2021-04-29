@@ -67,7 +67,7 @@ void DMA::dma_p(){
 			}
 		}//if end
 		if(START_CLEAR==1&&Interrupt.read()==0){
-			cout<<"DMA start to work\n");
+			cout<<"DMA start to work\n";
 			cout<<"SOURCE: 0x"<<hex<<SOURCE<<'\n';
 			cout<<"TARGET: 0x"<<hex<<TARGET<<'\n';
 			cout<<"SIZE:"<<SIZE<<'\n';
@@ -100,12 +100,12 @@ void DMA::dma_p(){
 				else if(size_iter==2) data_m=data_m&0x0000FFFF;
 				else if(size_iter==3) data_m=data_m&0x00FFFFFF;
 				
-				cout<<"--------------DMA read data---------------\n";
-				
+				cout<<"--------------DMA write data---------------\n";
+				int l=(size_iter>4)?4:(size_iter%4==0)?4:(size_iter%4);
 				trans_m->set_command(cmd_mw);
 				trans_m->set_address(addr_t);
 				trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data_m));
-				trans_m->set_data_length(4);
+				trans_m->set_data_length(l);
 				trans_m->set_streaming_width(4);
 				trans_m->set_byte_enable_ptr(0);
 				trans_m->set_dmi_allowed(false);

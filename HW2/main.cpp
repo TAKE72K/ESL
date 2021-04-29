@@ -44,7 +44,7 @@ int sc_main(int argc,char* argv[]){
 	sc_trace(tf, DMA1->data_m, "Mem_Data");
 	sc_trace(tf, DMA1->data, "s_Data");
 
-	sc_start(clkprd*30);
+	sc_start(clkprd*50);
 
 
 	sc_close_vcd_trace_file(tf);
