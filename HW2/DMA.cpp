@@ -95,11 +95,12 @@ void DMA::dma_p(){
 				tlm::tlm_command cmd_mw;
 				cmd_mw=tlm::TLM_WRITE_COMMAND;
 				//mask data
+
 				if(size_iter==1) data_m=data_m&0x000000FF;
 				else if(size_iter==2) data_m=data_m&0x0000FFFF;
 				else if(size_iter==3) data_m=data_m&0x00FFFFFF;
 				
-				cout<<" to target"<<hex<<addr_t<<'\n';
+				cout<<"--------------DMA read data---------------\n";
 				
 				trans_m->set_command(cmd_mw);
 				trans_m->set_address(addr_t);
@@ -110,6 +111,7 @@ void DMA::dma_p(){
 				trans_m->set_dmi_allowed(false);
 				trans_m->set_response_status(tlm::TLM_INCOMPLETE_RESPONSE);
 				master_p->b_transport(*trans_m,delay);
+				cout<<"source address:"<<hex<<addr_s<<",  target address"<<hex<<addr_t<<",  data:"<<hex<<data_m<<'\n';
 				
 				//iter
 				size_iter-=4;

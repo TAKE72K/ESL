@@ -12,7 +12,7 @@ void CPU::cpu_p(){
 
 	cout<<"Write control data\n"<<sc_time_stamp()<<'\n';
 	
-	data = 0x0;
+	data = 0x2020;
 	trans_m->set_command(cmd_mw);
 	trans_m->set_address(0x63000000);
 	trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data));
@@ -20,7 +20,7 @@ void CPU::cpu_p(){
 	master_p->b_transport(*trans_m,delay);
 	cout<<sc_time_stamp()<<" Write SOURCE:"<<hex<<data<<'\n';
 	
-	data = 0x400;
+	data = 0x20;
 	trans_m->set_command(cmd_mw);
 	trans_m->set_address(0x63000004);
 	trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data));
