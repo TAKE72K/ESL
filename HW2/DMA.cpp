@@ -17,12 +17,17 @@ void DMA::b_transport(tlm::tlm_generic_payload& trans, sc_time& delay){
 	//else{//read op
 		
 	//}
-	wait(30,SC_NS);
+	wait(10,SC_NS);
 	trans.set_response_status(tlm::TLM_OK_RESPONSE);
 
 }
 void DMA::dma_p(){
 	START_CLEAR=0;
+	SOURCE=0;
+	TARGET=0;
+	SIZE=0;
+	data_m=0;
+
 	Interrupt.write(0);
 	while(1){//main dma process
 		wait();
@@ -58,7 +63,7 @@ cout<<hex<<SOURCE;
 					break;
 			}
 		}//if end
-		if(START_CLEAR==1&&SIZE>0){
+		if(START_CLEAR==1&&Interrupt.read()==0){
 			printf("DMA start to work, moving data from %#010x to %#010x, size %d\n",SOURCE,TARGET,SIZE);
 			
 			int size_iter=SIZE;
