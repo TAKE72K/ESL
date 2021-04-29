@@ -31,7 +31,7 @@ SC_MODULE(DMA){
 	unsigned int data,data_m;
 	unsigned int* data_ptr;
 	
-	
+	bool is_data_wrote;
 	void dma_p();
 	void b_transport(tlm::tlm_generic_payload&, sc_time&);
 	

@@ -13,6 +13,7 @@ void DMA::b_transport(tlm::tlm_generic_payload& trans, sc_time& delay){
 		data_ptr=(reinterpret_cast<unsigned int*>(data_s));
 		data=*(reinterpret_cast<int*>(data_s));
 		offset=addr_s-BASE.read();
+		is_data_wrote=false;
 	}
 	//else{//read op
 		
@@ -27,6 +28,7 @@ void DMA::dma_p(){
 	TARGET=0;
 	SIZE=0;
 	data_m=0;
+	is_data_wrote=true;
 
 	Interrupt.write(0);
 	while(1){//main dma process
@@ -42,35 +44,40 @@ void DMA::dma_p(){
 			}
 		}
 		if(START_CLEAR==0){
-			cout<<offset<<"\n";
+			//cout<<offset<<"\n";
+			is_data_wrote=true;
 			switch(offset){
 				case 0x0:
 					SOURCE=data;
-					printf("Write SOURCE:%#010x\n",SOURCE);
-cout<<hex<<SOURCE;
+					//cout<<"Write SOURCE:%#010x\n",SOURCE);
+					//cout<<hex<<SOURCE;
 					break;
 				case 0x4:
 					TARGET=data;
-					printf("Write TARGET:%#010x\n",TARGET);
+					//printf("Write TARGET:%#010x\n",TARGET);
 					break;
 				case 0x8:
 					SIZE=data;
-					printf("Write SIZE:%d\n",SIZE);
+					//printf("Write SIZE:%d\n",SIZE);
 					break;
 				case 0xc:
 					START_CLEAR=data;
-					printf("Write START\n");
+					//printf("Write START\n");
 					break;
 			}
 		}//if end
 		if(START_CLEAR==1&&Interrupt.read()==0){
-			printf("DMA start to work, moving data from %#010x to %#010x, size %d\n",SOURCE,TARGET,SIZE);
+			cout<<"DMA start to work\n");
+			cout<<"SOURCE: 0x"<<hex<<SOURCE<<'\n';
+			cout<<"TARGET: 0x"<<hex<<TARGET<<'\n';
+			cout<<"SIZE:"<<SIZE<<'\n';
 			
 			int size_iter=SIZE;
 			int addr_s=SOURCE;
 			int addr_t=TARGET;
 			
 			while(size_iter>0){//moving data
+				cout<<"--------------DMA read data---------------\n";
 				tlm::tlm_command cmd_mr;
 				cmd_mr = tlm::TLM_READ_COMMAND;
 				trans_m->set_command(cmd_mr);
@@ -83,7 +90,7 @@ cout<<hex<<SOURCE;
 				trans_m->set_response_status(tlm::TLM_INCOMPLETE_RESPONSE);
 				master_p->b_transport( *trans_m, delay );
 				
-				printf("DMA read from source\n");
+				cout<<"source address:"<<hex<<addr_s<<",  target address"<<hex<<addr_t<<",  data:"<<hex<<data_m<<'\n';
 				
 				tlm::tlm_command cmd_mw;
 				cmd_mw=tlm::TLM_WRITE_COMMAND;
@@ -92,7 +99,7 @@ cout<<hex<<SOURCE;
 				else if(size_iter==2) data_m=data_m&0x0000FFFF;
 				else if(size_iter==3) data_m=data_m&0x00FFFFFF;
 				
-				printf("DMA write target\n");
+				cout<<" to target"<<hex<<addr_t<<'\n';
 				
 				trans_m->set_command(cmd_mw);
 				trans_m->set_address(addr_t);
