@@ -100,4 +100,19 @@ void CPU::cpu_p(){
 	trans_m->set_command(cmd_mr);
 	master_p->b_transport(*trans_m,delay);
 	
+	
+		while(1){
+		wait();
+		if(Interrupt==1){
+			wait(30,SC_NS);
+			data = 0x0;
+			trans_m->set_command(cmd_mw);
+			trans_m->set_address(0x6300000c);
+			trans_m->set_data_ptr(reinterpret_cast<unsigned char*>(&data));
+			trans_m->set_data_length(4);//byte
+			master_p->b_transport(*trans_m,delay);
+			cout<<sc_time_stamp()<<" Write CLEAR:"<<data<<'\n';
+			break;
+		}
+	}
 }

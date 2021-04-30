@@ -14,10 +14,10 @@ EXE = $(TARGET)
 all: $(EXE)
 
 $(EXE): $(MAIN) $(OBJECTS) $(HEADERS)
-	@echo "$@ building..."
+	@echo "$@ building...meow"
 	$(CXX) $(INCFLAGS) $(MAIN) $(OBJECTS) $(LDFLAGS) -o $@
 	@echo ""
-	@echo "$@ build done successfully..."
+	@echo "$@ build done successfully...meow"
 	@echo ""
 
 %.o:%.cpp %.h
