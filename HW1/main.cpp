@@ -80,19 +80,19 @@ int sc_main(int argc, char* argv[]){
 	reset.write(0);
 	rw_s.write(1);
 	wdata_s.write(0x20000);
-	addr_s.write(0x2021);
+	addr_s.write(0x2000);
 	sc_start(clkPrd);
 	printf("write SOURCE...\n");
 	wdata_s.write(0x30000);
-	addr_s.write(0x2025);
+	addr_s.write(0x2004);
 	sc_start(clkPrd);
 	printf("write TRAGET...\n");
 	wdata_s.write(0x8);
-	addr_s.write(0x2029);
+	addr_s.write(0x2008);
 	sc_start(clkPrd);
 	printf("write SIZE...\n");
 	wdata_s.write(1);
-	addr_s.write(0x202D);
+	addr_s.write(0x200c);
 	sc_start(clkPrd);
 	printf("write START...\n");
 	
@@ -129,22 +129,25 @@ int sc_main(int argc, char* argv[]){
 	sc_start(clkPrd*10);
 
 	wdata_s.write(0);
-	addr_s.write(0x202D);
+	addr_s.write(0x200c);
 	sc_start(clkPrd);
 	printf("write CLEAR...\n");
 	sc_start(clkPrd*10);
 	
-	
+	wdata_s.write(0xA0000);
+	addr_s.write(0x2000);
+	sc_start(clkPrd);
+	printf("write SOURCE...\n");
 	wdata_s.write(0xF0000);
-	addr_s.write(0x2025);
+	addr_s.write(0x2004);
 	sc_start(clkPrd);
 	printf("write TRAGET...\n");
 	wdata_s.write(0x7);
-	addr_s.write(0x2029);
+	addr_s.write(0x2008);
 	sc_start(clkPrd);
 	printf("write SIZE...\n");
 	wdata_s.write(1);
-	addr_s.write(0x202D);
+	addr_s.write(0x200c);
 	sc_start(clkPrd);
 	printf("write START...\n");
 
@@ -155,7 +158,7 @@ int sc_main(int argc, char* argv[]){
 	rw_m.read();
 	
 	addr_m.read();
-	rdata_m.write(0x20212022);
+	rdata_m.write(0xabcdefab);
 	sc_start(clkPrd);
 	printf("read 1st\n");
 	addr_m.read();
@@ -166,7 +169,7 @@ int sc_main(int argc, char* argv[]){
 	//1st
 	
 	addr_m.read();
-	rdata_m.write(0x20222023);
+	rdata_m.write(0x12345678);
 	sc_start(clkPrd);
 	printf("read 2nd\n");
 	addr_m.read();
@@ -175,10 +178,10 @@ int sc_main(int argc, char* argv[]){
 	sc_start(clkPrd);
 	printf("write 2nd\n");
 	//2nd
-	
+	printf("done");
 	//test reset
-	/*reset.write(1);
-	printf("test reset\n");*/
+	reset.write(1);
+	printf("DMA reset\n");
 	sc_start(clkPrd*10);
 
 	sc_close_vcd_trace_file(tf);
