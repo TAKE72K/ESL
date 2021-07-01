@@ -23,6 +23,7 @@ public:
 
     tlmModule             Platform;
     tlmDecoder            bus1;
+    tlmDecoder            bus2;
     tlmRam                ram1;
     tlmRam                ram3;
     tlmRam                ram4;
@@ -46,6 +47,7 @@ BareMetal::BareMetal (sc_module_name name)
     : sc_module (name)
     , Platform ("")
     , bus1 (Platform, "bus1", 3, 5)
+    , bus2 (Platform, "bus2", 0, 0)
     , ram1 (Platform, "ram1", 0x000fffff)
     , ram3 (Platform, "ram3", 0x000fffff)
     , ram4 (Platform, "ram4", 0x000fffff)
@@ -58,7 +60,7 @@ BareMetal::BareMetal (sc_module_name name)
     dma1 -> clk(clk);
 
     dma1 -> interrupt(interrupt_connect);
-    //dma1 -> rst(rst);
+    dma1 -> rst(rst);
     adaptor1.clk(clk);
     adaptor1.interrupt_in(interrupt_connect);
     adaptor1.interrupt_out(cpu1.MExternalInterrupt);

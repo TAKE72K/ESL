@@ -33,7 +33,22 @@ void DMA::dma_m(){
 		tlm::tlm_generic_payload* trans_m = new tlm::tlm_generic_payload;
 		tlm::tlm_command cmd_m;
 		sc_time delay = sc_time(10,SC_NS);
-		if(start == 1){
+		if (rst) {
+			cout << "=============Reset=============" << endl;
+			source = 0;
+			target = 0;
+			size = 0;
+			start = 0;
+			interrupt = false;
+		}
+		if(interrupt){
+			if(start==0){
+				interrupt=0;
+				cout<<"DMA reset";
+			}
+			
+		}
+		if(start == 1&&interrupt==0){
 			cout << "size : " << hex << size << endl;
 			cout << "source : " << hex << source << endl;
 			cout << "target : " << hex << target << endl;
@@ -95,11 +110,11 @@ void DMA::dma_m(){
 					source = 0;
 					target = 0;
 					size = 0;
-					start = 0;
+					//start = 0;
 					state = 1;
 					cout << "DMA send interrupt " << endl;
 					interrupt = 1;
-					wait(100000);
+					wait(1);
 					cout <<"interrupt = " << interrupt <<endl;
 					//interrupt = 0;
 					//wait(1);
@@ -108,20 +123,7 @@ void DMA::dma_m(){
 			}
 
 		}	
-		if (rst) {
-			cout << "=============Reset=============" << endl;
-			source = 0;
-			target = 0;
-			size = 0;
-			start = 0;
-			interrupt = false;
-		}
-		if(interrupt){
-			if(start==0){
-				interrupt=0;
-				cout<<"DMA reset";
-			}
-		}
+		
 	}		
 }	
 	
